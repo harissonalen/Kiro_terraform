@@ -50,6 +50,7 @@ terraform workspace new staging
 
 ### Plan
 terraform plan -var-file="dev.tfvars" -out="dev.tfplan"
+--- ou ---
 terraform plan -var-file="staging.tfvars" -out="staging.tfplan"
 
 ### Apply
@@ -59,6 +60,7 @@ terraform apply "staging.tfplan"
 ### Destroy
 terraform plan -var-file="dev.tfvars" -out="dev.tfplan" -destroy
 terraform apply "dev.tfplan"
+--- ou ---
 terraform plan -var-file="staging.tfvars" -out="staging.tfplan" -destroy
 terraform apply "staging.tfplan"
 
