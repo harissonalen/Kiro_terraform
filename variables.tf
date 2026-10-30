@@ -1,0 +1,29 @@
+variable "aws_region" {
+  description = "Região AWS"
+  type        = string
+  default     = "us-west-1"
+}
+
+variable "vpc_cidr" {
+  description = "Bloco CIDR da VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidr" {
+  description = "Bloco CIDR da sub-rede pública"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "private_subnet_1_cidr" {
+  description = "Bloco CIDR da sub-rede privada 1"
+  type        = string
+  default     = "10.0.10.0/24"
+}
+
+variable "private_subnet_2_cidr" {
+  description = "Bloco CIDR da sub-rede privada 2"
+  type        = string
+  default     = "10.0.20.0/24"
+}

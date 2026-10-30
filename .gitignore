@@ -1,0 +1,28 @@
+# Terraform
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Variáveis (versionar como exemplo)
+# *.tfvars - descomente se quiser ignorar
+
+# Diretórios de cache do Terraform
+.terraform/
+terraform.tfstate.d/
+
+# Arquivos de backup
+*.backup
+*.bak
+
+# Secrets (não versionar)
+*.pem
+*.key
+*.csv
+credenciais*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
