@@ -27,3 +27,15 @@ variable "private_subnet_2_cidr" {
   type        = string
   default     = "10.0.20.0/24"
 }
+
+variable "availability_zone_1" {
+  description = "Zona de disponibilidade 1"
+  type        = string
+  default     = "us-west-1a"
+}
+
+variable "availability_zone_2" {
+  description = "Zona de disponibilidade 2"
+  type        = string
+  default     = "us-west-1c"
+}

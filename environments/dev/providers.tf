@@ -5,7 +5,7 @@ provider "aws" {
     tags = {
       MVP         = "MVP8"
       Project     = "Residencia-Cloud"
-      Environment = terraform.workspace
+      Environment = "dev"
       ManagedBy   = "Terraform"
     }
   }

@@ -1,28 +1,73 @@
+# ==============================
+# Terraform - Boas Práticas
+# ==============================
 
-# Terraform
+# Estados do Terraform (CRÍTICO - nunca versionar)
 *.tfstate
 *.tfstate.*
+*.tfstate.backup
+*.tfstate.*.backup
+
+# Arquivos de plano
 *.tfplan
+*.tfplan.*
 
-# Variáveis (versionar como exemplo)
-# *.tfvars - descomente se quiser ignorar
-
-# Diretórios de cache do Terraform
+# Diretório de cache e plugins (cada ambiente tem o seu)
 .terraform/
-terraform.tfstate.d/
+.terraform.lock.hcl  # VERSÃO: Comentar se quiser lock fixo por ambiente
 
-# Arquivos de backup
-*.backup
-*.bak
+# Estados remotos (se usar backend remoto)
+# terraform.tfstate.d/  # descomente se usar state local
 
-# Secrets (não versionar)
+# ==============================
+# Credentials e Secrets
+# ==============================
+
+# Chaves e certificados
 *.pem
 *.key
-*.csv
-credenciais*
+*.crt
+*.cer
+*.p12
 
-# IDEs
+# Arquivos com credenciais
+*.csv
+*.json (não sendo usado para secrets)
+credenciais*
+*credentials*
+*secret*
+*password*
+
+# Variáveis sensíveis (TFVARS com valores reais)
+*.tfvars
+
+# AWS CLI
+.aws/
+aws_credentials*
+
+# ==============================
+# IDEs e Editores
+# ==============================
+
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+.DS_Store
+
+# ==============================
+# Logs e Temporários
+# ==============================
+
+*.log
+*.tmp
+*.temp
+
+# ==============================
+# Observação para times
+# ==============================
+# Para configurar variáveis por ambiente:
+# 1. Copie terraform.tfvars.example para terraform.tfvars
+# 2. Preencha com os valores do seu ambiente
+# 3. Não commite o terraform.tfvars com valores reais

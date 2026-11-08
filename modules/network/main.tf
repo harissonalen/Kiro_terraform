@@ -22,7 +22,7 @@ resource "aws_internet_gateway" "main" {
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr
-  availability_zone       = "us-west-1a"
+  availability_zone       = var.availability_zone_1
   map_public_ip_on_launch = true
 
   tags = {
@@ -34,7 +34,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private_1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_1_cidr
-  availability_zone = "us-west-1a"
+  availability_zone = var.availability_zone_1
 
   tags = {
     Name = "irede-mvp-8-subnet-privada-1"
@@ -45,7 +45,7 @@ resource "aws_subnet" "private_1" {
 resource "aws_subnet" "private_2" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_2_cidr
-  availability_zone = "us-west-1c"
+  availability_zone = var.availability_zone_2
 
   tags = {
     Name = "irede-mvp-8-subnet-privada-2"
