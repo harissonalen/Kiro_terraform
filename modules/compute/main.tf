@@ -19,6 +19,7 @@ resource "aws_cloudwatch_log_group" "ecs" {
 # --------------------------------------------
 # ECR - Elastic Container Registry
 # --------------------------------------------
+# TODO: Adicionar lifecycle policy para gestão de imagens antigas (opcional)
 resource "aws_ecr_repository" "main" {
   name = "${var.project_name}-${var.environment}"
 
@@ -66,17 +67,18 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
 # --------------------------------------------
 # Security Group
 # --------------------------------------------
+# TODO: Revisar regras de entrada conforme necessidade do ambiente
+# Por padrão, está permitindo HTTP (80) de qualquer lugar (0.0.0.0/0)
 resource "aws_security_group" "ecs" {
   name        = "irede-mvp-8-ecs-sg-${var.environment}"
   description = "Security Group para ECS - ${var.environment}"
   vpc_id      = var.vpc_id
 
-  # regra será configurada pelos ambientes conforme necessidade
   ingress {
     from_port   = var.container_port
     to_port     = var.container_port
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]  # TODO: Alterar para IP específico ou Security Group
     description = "HTTP"
   }
 
@@ -114,17 +116,21 @@ resource "aws_ecs_cluster" "main" {
 # --------------------------------------------
 # ECS Task Definition
 # --------------------------------------------
+# TODO: Definir imagem específica da aplicação para produção
+# TODO: Ajustar CPU e memory conforme necessidade da aplicação
 resource "aws_ecs_task_definition" "main" {
   family                   = "${var.project_name}-${var.environment}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = var.cpu
-  memory                   = var.memory
+  cpu                      = var.cpu      # TODO: Ajustar conforme requirements da aplicação
+  memory                   = var.memory   # TODO: Ajustar conforme requirements da aplicação
   execution_role_arn       = aws_iam_role.ecs_task_execution.arn
 
   container_definitions = jsonencode([
     {
       name      = "${var.project_name}-container"
+      # TODO: Substituir pela imagem real da aplicação após fazer push para ECR
+      # Formato: <account_id>.dkr.ecr.<region>.amazonaws.com/<repo>:<tag>
       image     = "${aws_ecr_repository.main.repository_url}:${var.ecr_image_tag}"
       cpu       = var.cpu
       memory    = var.memory
@@ -132,7 +138,7 @@ resource "aws_ecs_task_definition" "main" {
 
       portMappings = [
         {
-          containerPort = var.container_port
+          containerPort = var.container_port  # TODO: Alterar se a aplicação usar outra porta
           protocol      = "tcp"
         }
       ]
